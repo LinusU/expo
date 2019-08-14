@@ -18,7 +18,9 @@
 - (instancetype)initWithBundleName:(NSString *)bundleName remoteUrl:(NSURL *)url devToolsEnabled:(BOOL)devToolsEnabled
 {
   if (self = [super initWithResourceName:bundleName resourceType:@"bundle" remoteUrl:url cachePath:[[self class] javaScriptCachePath]]) {
-    self.urlCache = [[self class] javaScriptCache];
+    if (![EXEnvironment sharedEnvironment].isDetached) {
+      self.urlCache = [[self class] javaScriptCache];
+    }
     self.devToolsEnabled = devToolsEnabled;
   }
   return self;
